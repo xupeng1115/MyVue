@@ -2,9 +2,10 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>模板</title>
+		<title>介绍</title>
 	</head>
 	<body>
+		
 		<div id="app">
 			{{message}}
 		</div>
@@ -20,13 +21,36 @@
 		</div>
 		
 		<div id="app4">
-			<ul v-for="todo in todos">
-				<li>{{todo.text}}</li>
+			<ul>
+				<li v-for="todo in todos" v-bind:title="todo.text">
+					{{todo.text}}
+				</li>
 			</ul>
 		</div>
 		
+		<div id="app5">
+			<p>{{message}}</p>
+			<button v-on:click="reverseMessage">逆转消息</button>
+		</div>
+		
+		<div id="app6">
+			<p>{{message}}</p>
+			<input type="text" v-model="message"/>
+			<ul>
+	  			<todo-item v-for="todo in todos" v-bind:todo="todo"></todo-item>
+			</ul>
+		</div>
+		
+		
+		
 		<script src="../lib/vue.js"></script>
 		<script>
+			
+			Vue.component('todo-item', {
+				props:["todo"],
+  				template: '<li>{{todo.text}}</li>'
+			})
+			
 			var app=new Vue({
 				el:'#app',
 				data:{
@@ -64,6 +88,41 @@
 					]
 				}
 			})
+			
+			var app5=new Vue({
+				el:'#app5',
+				data:{
+					message:"Hello Vue!",
+				},
+				methods:{
+					reverseMessage:function(){
+						this.message=this.message.split("").reverse().join("");
+					}
+				}
+				
+			})
+			
+			var app6=new Vue({
+				el:'#app6',
+				data:{
+					message:"Hello Vue!",
+					todos:[
+						{
+							text:"Hello AB"
+						},
+						{
+							text:"Hello ketty"
+						},
+						{
+							text:"Hello xiaoming"
+						}
+					]
+				}
+			})
+			
+			
+			
+			
 			
 		</script>
 	</body>
