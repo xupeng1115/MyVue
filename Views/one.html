@@ -37,11 +37,13 @@
 			<p>{{message}}</p>
 			<input type="text" v-model="message"/>
 			<ul>
-	  			<todo-item v-for="todo in todos" v-bind:todo="todo"></todo-item>
+	  			<todo-item v-for="todo in todos" v-bind:todo="todo" v-bind:key="todo.id"></todo-item>
 			</ul>
 		</div>
 		
-		
+		<div id="app7">
+			<p>{{message}}</p>
+		</div>
 		
 		<script src="../lib/vue.js"></script>
 		<script>
@@ -99,7 +101,6 @@
 						this.message=this.message.split("").reverse().join("");
 					}
 				}
-				
 			})
 			
 			var app6=new Vue({
@@ -108,22 +109,37 @@
 					message:"Hello Vue!",
 					todos:[
 						{
+							id:0,
 							text:"Hello AB"
 						},
 						{
+							id:1,
 							text:"Hello ketty"
 						},
 						{
+							id:2,
 							text:"Hello xiaoming"
 						}
 					]
 				}
 			})
 			
-			
-			
-			
+			var app7=new Vue({
+				el:"#app7",
+				data:{
+					message:"Hello Vue aaaa !",
+					a:"Vue"
+				},
+				created:function(){
+					console.log('a is: '+this.a);
+				}
+			})
 			
 		</script>
 	</body>
 </html>
+
+
+
+
+

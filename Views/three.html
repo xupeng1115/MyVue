@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>模板语法</title>
+	</head>
+	<body>
+		
+		<div id="app">
+			<div>{{message}}</div>
+			<p>
+				<span v-once>{{message}}</span>
+			</p>
+			<p>{{rawHtml}}</p>
+			<p v-html="rawHtml"></p>
+			<button v-bind:disabled="isButtonDisabled">Button</button>
+			<div>
+				<p>{{number+1}}</p>
+				<p>{{ok?'YES':'NO'}}</p>
+				<p>{{message.split("").reverse().join("")}}</p>
+				<div v-bind:id="'list-'+id">我的id是{{id}}</div>
+			</div>
+		</div>
+		
+		<script src="../lib/vue.js"></script>
+		<script>
+			
+			var app=new Vue({
+				el:'#app',
+				data:{
+					message:'Hello Vue',
+					rawHtml:'<span style="color:red;">I am raw Html</span>',
+					isButtonDisabled:true,
+					ok:true,
+					number:1,
+					id:1
+				}
+			})
+			
+			
+			
+		</script>
+	</body>
+</html>

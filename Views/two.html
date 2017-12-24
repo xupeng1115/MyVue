@@ -13,6 +13,12 @@
 		<div id="app1">
 			
 		</div>
+		
+		<div id="app2">
+			<div>{{message}}</div>
+			<p>{{a}}</p>
+		</div>
+		
 		<script src="../lib/vue.js"></script>
 		
 		<script>
@@ -50,6 +56,40 @@
 			})
 			
 //			app1.$watch("b",newVal => this.myMethod()); //会报错
+			
+			var app2=new Vue({
+				el:"#app2",
+				data:{
+					message:"Hello Vue!",
+					a:1
+				},
+				beforeCreate:function(){
+					console.log('beforeCreate a is: '+this.a);
+				},
+				created:function(){
+					console.log('created a is: '+this.a);
+				},
+				beforeMount:function(){
+					console.log('beforeMount a is: '+this.a);
+				},
+				mounted:function(){
+					console.log('mounted a is: '+this.a);
+				},
+				beforeUpdate:function(){
+					console.log('beforeUpdate a is: '+this.a);
+				},
+				updated:function(){
+					console.log('updated a is: '+this.a);
+				},
+				beforeDestroy:function(){
+					console.log('beforeDestroy a is: '+this.a);
+				},
+				destroyed:function(){
+					console.log('destroyed a is: '+this.a);
+				}
+			})
+			
+			
 			
 		</script>
 	
