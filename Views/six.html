@@ -14,7 +14,38 @@
 				<p>section2</p>
 			</template>
 			<div v-show="ok">我是show</div>
-
+			<div>
+				<div v-if="type==='A'">
+					A
+				</div>
+				<div v-else-if="type==='B'">
+					B
+				</div>
+				<div v-else-if="type==='c'">
+					C
+				</div>
+				<div v-else>
+					D
+				</div>
+			</div>
+			<div>
+				<template v-if="loginType==='username'">
+					<label for="">Username</label>
+					<input type="text" placeholder="Enter your username" key="loiginType-username"/>
+				</template>
+				<template v-else>
+					<label for="">Email</label>
+					<input type="text" placeholder="Enter your email address" key="loginType-email"/>
+				</template>
+				<div>
+					<button @click="toggle">Toggle login type</button>
+				</div>
+			</div>
+			<div>
+				<ul>
+					<li v-if="todo.id!==1" v-for="todo in todos" :id="todo.id">{{todo.text}}</li>
+				</ul>
+			</div>
 		</div>
 		
 		<script src="../lib/jquery-1.11.3.min.js"></script>
@@ -24,12 +55,35 @@
 				el:'#app',
 				data:{
 					message:"Hello Vue",
-					ok:true
+					ok:true,
+					type:"B",
+					loginType:"username",
+					todos:[
+						{
+							id:0,
+							text:"Hello Vue"
+						},
+						{
+							id:1,
+							text:"Hello World"
+						},
+						{
+							id:2,
+							text:"Hello Ketty"
+						}
+					]
 				},
 				methods:{
 					click1:function(event){
 						console.log(event.target);
 							event.target.innerHTML="WOSHISHOW";
+					},
+					toggle:function(){
+						if(this.loginType==="username"){
+							this.loginType="eamil";
+						}else{
+							this.loginType="username";
+						}
 					}
 				}
 			})
