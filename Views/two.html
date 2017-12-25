@@ -64,27 +64,35 @@
 					a:1
 				},
 				beforeCreate:function(){
+					console.log(this);
 					console.log('beforeCreate a is: '+this.a);
 				},
 				created:function(){
+					console.log(this);
 					console.log('created a is: '+this.a);
 				},
 				beforeMount:function(){
+					console.log(this);
 					console.log('beforeMount a is: '+this.a);
 				},
 				mounted:function(){
+					console.log(this);
 					console.log('mounted a is: '+this.a);
 				},
 				beforeUpdate:function(){
+					console.log(this);
 					console.log('beforeUpdate a is: '+this.a);
 				},
 				updated:function(){
+					console.log(this);
 					console.log('updated a is: '+this.a);
 				},
 				beforeDestroy:function(){
+					console.log(this);
 					console.log('beforeDestroy a is: '+this.a);
 				},
 				destroyed:function(){
+					console.log(this);
 					console.log('destroyed a is: '+this.a);
 				}
 			})

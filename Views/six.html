@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>条件</title>
+	</head>
+	<body>
+		<div id="app">
+			<div v-if="ok" @click="click1">我是ok</div>
+			<div v-else>我是NO</div>
+			<template v-if="ok">
+				<p>Title</p>
+				<p>section1</p>
+				<p>section2</p>
+			</template>
+			<div v-show="ok">我是show</div>
+
+		</div>
+		
+		<script src="../lib/jquery-1.11.3.min.js"></script>
+		<script src="../lib/vue.js"></script>
+		<script>
+			var app=new Vue({
+				el:'#app',
+				data:{
+					message:"Hello Vue",
+					ok:true
+				},
+				methods:{
+					click1:function(event){
+						console.log(event.target);
+							event.target.innerHTML="WOSHISHOW";
+					}
+				}
+			})
+			
+			
+			$(function(){
+				
+			})
+		</script>
+	</body>
+</html>

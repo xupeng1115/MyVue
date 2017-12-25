@@ -19,6 +19,24 @@
 				<p>{{ok?'YES':'NO'}}</p>
 				<p>{{message.split("").reverse().join("")}}</p>
 				<div v-bind:id="'list-'+id">我的id是{{id}}</div>
+				<div>
+					{{msg | capitalize}}
+				</div>
+				<div>
+					{{msg | filterA | filterB}}
+				</div>
+				<div>
+					{{msg | filterC('hello xiaoming','hello ketty')}}
+				</div>
+				<div v-if="seen">Now you see me</div>
+				<a v-bind:herf="url">百度一下</a>
+				<div v-bind:title="mytitle">我有title</div>
+				<button v-on:click="toTo">点我</button>
+				<div v-on:click="clickparent" style="width:150px;height:20px;line-height:20px;color:#f40;border:1px solid #ff4040;">
+					<div v-on:click.prevent="clicksub" style="margin-left:10px;width:100px;height:18px;">我是自己</div>
+				</div>
+				<a :href="url">百度有了</a>
+				<button @click="toTo2">点我</button>
 			</div>
 		</div>
 		
@@ -33,8 +51,53 @@
 					isButtonDisabled:true,
 					ok:true,
 					number:1,
-					id:1
-				}
+					id:1,
+					msg:"hello ab",
+					seen:true,
+					url:"https://www.baidu.com",
+					mytitle:"我是title"
+				},
+				filters:{
+					capitalize:function(value){
+						console.log(this);
+						if(!value)return "";
+						value=value.toString();
+						return value.charAt(0).toUpperCase()+value.slice(1);
+					},
+					filterA:function(value){
+						if(!value)return "";
+						value=value.toString();
+						return value.charAt(0).toUpperCase()+value.slice(1);
+					},
+					filterB:function(value){
+						console.log(value);
+						if(!value)return "";
+						value=value.toString();
+						return "H"+value.charAt(1).toUpperCase()+value.slice(2);
+					},
+					filterC:function(value,arg1,arg2){
+						console.log(value);
+						console.log(arg1);
+						console.log(arg2);
+						return arg1+" "+arg2+" "+value;
+					}
+				},
+				methods:{
+					toTo:function(){
+						console.log(this);
+						window.location.href="https://www.baidu.com";
+					},
+					toTo2:function(){
+						console.log(this.url);
+					},
+					clickparent:function(){
+						console.log("我是父");
+					},
+					clicksub:function(){
+						console.log("我是子");
+					}
+				}		
+				
 			})
 			
 			
