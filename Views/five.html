@@ -3,18 +3,105 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>CSS与Style</title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			.active{
+				color:#f40;
+			}
+			.text-danger{
+				font-size:20px;
+			}
+		</style>
 	</head>
 	<body>
 		
-		<div id="app">{{message}}</div>
+		<div id="app">
+			<div v-bind:class="{active:isActive}">{{message}}</div>
+			<div v-bind:class="{active:isActive,'text-danger':hasError}">{{message}}</div>
+			<div v-bind:class="classObj">{{message}}</div>
+			<div v-bind:class="classObj2">{{message}}</div>
+			
+			<div v-bind:class="[activeClass,errorClass]">{{message}}</div>
+			<div v-bind:class="[isActive?activeClass:'',errorClass]">{{message}}</div>
+			<div v-bind:class="[{active:isActive},errorClass]">{{message}}</div>
+			
+			<div>
+				<ul>
+					<todos v-for="(todo,index) in todos" :key="index" :todo="todo" :index="index" v-bind:class="{active:isActive}" :error="hasError"></todos>
+				</ul>
+			</div>
+			
+			<div v-bind:style="{color:activeColor,fontSize:fontSize+'px'}">{{message}}</div>
+			<div v-bind:style="styleObj">{{message}}</div>
+			<div v-bind:style="styleObj2">{{message}}</div>
+			<div v-bind:style="[baseStyle,ErrorStyle]">{{message}}</div>
+			<div v-bind:style="{display:['-webkit-box', '-ms-flexbox']}">{{message}}</div>
+		</div>
 		
 		<script src="../lib/vue.js"></script>
 		<script>
 			
+			Vue.component('todos',{
+				props:['todo','index','error'],
+				template:'<li v-bind:class="{'+"'text-danger'"+':error}" :index="index">{{todo.text}}</li>'
+			})
+			
 			var app=new Vue({
 				el:'#app',
 				data:{
-					message:"Hello Vue"
+					message:"Hello Vue",
+					isActive:true,
+					hasError:true,
+					error:null,
+					classObj:{
+						active:true,
+						'text-danger':true
+					},
+					activeClass:'active',
+					errorClass:'text-danger',
+					todos:[
+						{
+							text:"Hello 世界"
+						},
+						{
+							text:"Hello 小明"
+						},
+						{
+							text:"Hello ketty"
+						}
+					],
+					activeColor:'red',
+					fontSize:30,
+					styleObj:{
+						color:'red',
+						fontSize:'30px'
+					},
+					colorStyle:true,
+					fontStyle:true,
+					baseStyle:{
+						color:'green',
+						fontSize:'20px'
+					},
+					ErrorStyle:{
+						background:'#f40'
+					}
+				},
+				computed:{
+					classObj2:function(){
+						return{
+							active:this.isActive&&!this.error,
+							'text-danger':this.error&&this.error.type==='fatal'
+						}
+					},
+					styleObj2:function(){
+						return{
+							color:this.colorStyle?'red':'green',
+							fontSize:this.fontStyle?'30px':'20px'
+						}
+					}
 				}
 			})
 			
