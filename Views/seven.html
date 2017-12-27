@@ -42,13 +42,83 @@
 					</li>
 				</ul>
 			</div>
+			<div>
+				<ul>
+					<li v-for="n in evenNumbers">{{n}}</li>
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<li v-for="n in even(numbers)">{{n}}</li>
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<template v-for="item in items">
+						<li>{{item.message}}</li>
+						<li class="divider"></li>
+					</template>
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<li v-for="(item,index) in items" :key="item.id" :index="index">
+						<div v-if="item.id===0" v-bind:style="{color:'#f40'}">{{item.message}}</div>
+						<div v-if="item.id===1" v-bind:style="{color:'#0099e5'}">{{item.message}}</div>
+						<div v-if="item.id===2" v-bind:style="{color:'green'}">{{item.message}}</div>
+						<div v-if="item.id===3" v-bind:style="{color:'#ffbf00'}">{{item.message}}</div>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<li v-for="n in numbers" v-if="n>2">{{n}}</li>
+				</ul>
+			</div>
+			<div>
+				<ul v-if="seen">
+					<li v-for="n in numbers">{{n}}</li>
+				</ul>
+			</div>
+			<div>
+				<input type="text" 
+					v-model="newTodoText"
+					v-on:keyup.enter="addNewTodo"
+					placeholder="Add a todo"
+				/>
+				<ul>
+					<li
+						is="todo-item"
+						v-for="(todo,index) in todos"
+						v-bind:todo="todo"
+						v-bind:title="todo.title"
+						v-bind:key="todo.id"
+						v-on:remove="todos.splice(index,1)"
+					></li>
+				</ul>
+			</div>
 		</div>
+		
+		
+		
 		<script src="../lib/jquery-1.11.3.min.js"></script>
 		<script src="../lib/vue.js"></script>
 		<script>
+			
+			Vue.component('todo-item',{
+				props:['item','title'],
+				template:'\
+					<li>\
+						{{title}}\
+						<button v-on:click="$emit(\'remove\')">X</button>\
+					</li>\
+				'
+			})
+			
 			var app=new Vue({
 				el:'#app',
 				data:{
+					seen:true,
 					message:"Hello Vue",
 					items:[
 						{
@@ -64,9 +134,48 @@
 						id:0,
 						text:"Hello AB",
 						age:40
+					},
+					numbers:[1,2,3,4,5],
+					newTodoText:'',
+					todos:[
+						{
+							id:1,
+							title:'Do the dishes'
+						},
+						{
+							id:2,
+							title:'Mow the lawn'
+						},
+						{
+							id:3,
+							title:'Take out the trash'
+						}
+					],
+					nextTodoId:4
+				},
+				computed:{
+					evenNumbers:function(){
+						return this.numbers.filter(function(number){
+							return number%2===0
+						})
+					}
+				},
+				methods:{
+					even:function(numbers){
+						return numbers.filter(function(number){
+							return number%2===0;
+						})
+					},
+					addNewTodo:function(){
+						this.todos.push({
+							id:this.nextTodoId++,
+							title:this.newTodoText
+						})
+						this.newTodoText=''
 					}
 				}
 			})
+			
 			
 			
 			$(function(){
@@ -76,6 +185,7 @@
 //				app.items.splice(2);
 				Vue.set(app.lists,'friend','xiaozhu');
 				app.lists=Object.assign({},app.lists,{'ttt':'aaa','ccc':'bbb'});
+				
 			})
 			
 		</script>
