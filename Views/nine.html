@@ -63,8 +63,11 @@
 					v-model="toggle"
 					true-value="yes"
 					false-value="no"
+					id="check2"
 				>
+				<label for="check2">{{toggle}}</label>
 			</div>
+			
 			<div>
 				<input type="radio" v-model="pick" v-bind:value="a"/>
 			</div>
@@ -72,8 +75,16 @@
 			<select v-model="selected">
 				<option v-bind:value="{number:123}">123</option>
 			</select>
-			
-			
+			<div>
+				<input type="text" v-model.lazy="msg"/>
+				<p>{{msg}}</p>
+			</div>
+			<div>
+				<input type="text" v-model.number="age"/>
+			</div>
+			<div>
+				<input type="text" v-model.trim="msg"/>
+			</div>
 			
 		</div>
 		<script src="../lib/vue.js"></script>
@@ -87,10 +98,19 @@
 					checkedNames:[],
 					picked:'',
 					selected:'',
-					selected2:[]
+					selected2:[],
+					toggle:'no',
+					pick:false,
+					a:true,
+					msg:"hello Vue",
+					age:10
 				}
 			})
 			
 		</script>
 	</body>
 </html>
+
+
+
+

@@ -23,6 +23,10 @@
 				</p>
 				<p>{{answer}}</p>
 			</div>
+			<div>
+				<button @click="ToGo">点我</button>
+				<div v-show="seen">{{我是seen}}</div>
+			</div>
 		</div>
 		
 		
@@ -85,7 +89,10 @@
           					})
 						},
 						500
-					)
+					),
+					ToGo:function(){
+						this.seen=true;
+					}
 				},
 				watch:{
 					firstName:function(value){
